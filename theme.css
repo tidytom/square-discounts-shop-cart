@@ -1,0 +1,28 @@
+/* theme.css — optional Squarespace layout tweaks. Not needed by the widget.
+   Paste into Squarespace Custom CSS if you want them. */
+
+/* Reduce footer height */
+#footer-sections .page-section {
+    min-height: 0px !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+/* Remove inner content padding */
+#footer-sections .page-section .content-wrapper {
+    padding-top: 20px !important; /* Adjust this value (e.g., 0px) for even less space */
+    padding-bottom: 20px !important; /* Adjust this value (e.g., 0px) for even less space */
+}
+
+/* Make the mobile menu (burger) icon smaller */
+.burger-inner.header-menu-icon-tripleLineHamburger .top-bun {
+  transform: translatey(-7px);
+}
+
+.burger-inner.header-menu-icon-tripleLineHamburger .bottom-bun {
+  transform: translatey(7px);
+}
+
+.burger-inner > div {
+  width: 70% !important;
+}

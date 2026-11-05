@@ -1,0 +1,90 @@
+/* box-progress.css — styles for box-progress.js.
+   Paste into Squarespace Custom CSS. See README.md. */
+
+/* 1. GLOBAL PADDING (room for the widget at the bottom of the page) */
+body { padding-bottom: 130px !important; }
+@media (max-width: 600px) { body { padding-bottom: 110px !important; } }
+
+/* 2. CUSTOM NAV BUTTONS (product pages) */
+#custom-nav-wrapper {
+    display: flex; justify-content: space-between; align-items: center;
+    width: 100%; margin-bottom: 25px; padding: 0 2px; box-sizing: border-box;
+}
+.nav-btn {
+    font-family: inherit; font-weight: 700; text-decoration: none !important;
+    font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; cursor: pointer;
+    color: inherit !important;
+    opacity: 0.95; transition: all 0.2s ease; display: flex; align-items: center; gap: 8px;
+}
+.nav-btn:hover { opacity: 0.7; }
+.back-btn:hover { transform: translateX(-3px); }
+.cart-btn:hover { transform: translateY(-2px); }
+.nav-cart-icon { display: block; width: 18px; height: 18px; }
+
+/* 3. CHECKOUT WARNING */
+.qty-warning-msg {
+    display: none; text-align: center; font-size: 14px; color: #d93025; margin-bottom: 15px;
+    font-weight: 600; line-height: 1.5; font-family: inherit; padding: 0 10px; white-space: pre-wrap;
+}
+body.cart-locked .qty-warning-msg { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* 4. WIDGET */
+#box-progress-widget {
+    position: fixed; bottom: 30px; right: 30px; width: auto; min-width: 340px; max-width: 420px;
+    background: #fff; border-radius: 18px; box-shadow: 0 12px 40px rgba(0,0,0,0.15); z-index: 99999;
+    font-family: inherit; overflow: hidden; cursor: pointer; border: 1px solid rgba(0,0,0,0.06);
+    transform: translateY(150%); opacity: 0; transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.8s ease;
+}
+#box-progress-widget.widget-visible { transform: translateY(0); opacity: 1; }
+#box-progress-widget.widget-interactive:hover { transform: translateY(-4px); }
+#box-progress-widget:focus-visible { outline: 3px solid #0055ff; outline-offset: 3px; }
+.bp-image { width: 45px; height: auto; display: block; object-fit: contain; }
+
+@media (max-width: 600px) {
+    #box-progress-widget { bottom: 20px; left: 15px; right: 15px; min-width: 0 !important; width: auto !important; max-width: 100%; padding-bottom: 0; }
+    .theme-bulk-order .bp-image { display: none !important; }
+    .theme-bulk-order #promo-count { display: none !important; }
+    .theme-bulk-order .bar-content { justify-content: center !important; text-align: center !important; }
+    .theme-bulk-order .bar-left { justify-content: center !important; width: 100%; }
+    .theme-bulk-order .bar-text { align-items: center !important; width: 100%; }
+    .theme-bulk-order .email-link { font-size: 11px !important; white-space: nowrap !important; }
+}
+.bar-content { display: flex; justify-content: space-between; align-items: center; padding: 18px 28px; gap: 25px; position: relative; z-index: 2; }
+.bar-left { display: flex; align-items: center; gap: 18px; }
+.bar-text { display: flex; flex-direction: column; min-width: 0; }
+#promo-main { font-weight: 800; font-size: 16px; line-height: 1.1; color: #111; letter-spacing: -0.02em;}
+.min-msg { font-size: 12px; font-weight: 500; color: #888; margin-top: 2px; margin-bottom: 1px; text-transform: uppercase; letter-spacing: 0.5px; }
+#promo-sub { font-weight: 500; font-size: 13px; color: #666; margin-top: 2px; }
+.email-link { text-decoration: underline; font-weight: bold; color: inherit; pointer-events: auto; white-space: nowrap; display: block; }
+#promo-count { background: #111; color: #fff; font-weight: 700; font-size: 18px; padding: 12px 18px; border-radius: 12px; min-width: 45px; text-align: center; }
+#progress-indicator { height: 6px; background: #111; width: 0%; transition: width 0.4s ease; position: absolute; bottom: 0; left: 0; }
+
+/* Widget color themes */
+.theme-neutral { border-top: 5px solid #111; }
+.theme-neutral #promo-main { color: #111; }
+.theme-locked { border-top: 5px solid #e74c3c; background: #fffdfd; }
+.theme-locked #promo-sub { color: #d93025; font-weight: 600; }
+.theme-locked #progress-indicator { background: #e74c3c; }
+.theme-success { border-top: 5px solid #27ae60; background: #f0fdf4; }
+.theme-success #promo-main { color: #188038; }
+.theme-success #progress-indicator { background: #27ae60; }
+.theme-perfect { border-top: 5px solid #f1c40f; background: #fffdf5; }
+.theme-perfect #promo-main { color: #b7950b; }
+.theme-perfect #progress-indicator { background: #f1c40f; }
+.theme-bulk-order { border-top: 5px solid #0055ff; background: #f0f7ff; }
+.theme-bulk-order #promo-main { color: #0055ff; }
+.theme-bulk-order #promo-sub { color: #0055ff; }
+.theme-bulk-order #progress-indicator { background: #0055ff; }
+
+/* Checkout lock (a visual prompt only; see README) */
+body.cart-locked .cart-checkout-button,
+body.cart-locked [data-test="checkout-button"] { opacity: 0.5 !important; pointer-events: none !important; background: #ccc !important; }
+
+/* 5. CART PAGE STYLES */
+body.has-custom-discount .cart-subtotal-price,
+body.has-custom-discount .sqs-cart-subtotal .price,
+body.has-custom-discount [data-test="cart-subtotal"] .value { text-decoration: line-through !important; color: #777 !important; opacity: 0.6; }
+.custom-cart-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; font-family: inherit; font-size: 16px; }
+#custom-discount-row { color: #d93025; font-weight: 600; }
+#custom-total-row { color: #000; font-weight: 800; font-size: 1.2em; margin-top: 5px; border-top: 1px solid #eee; padding-top: 10px; }
